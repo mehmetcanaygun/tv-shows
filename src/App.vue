@@ -3,7 +3,7 @@ import TheNavbar from "./components/TheNavbar.vue";
 </script>
 
 <template>
-  <div class="bg-dark text-light w-full h-screen font-Raleway">
+  <div class="bg-dark text-light w-full min-h-screen overflow-x-hidden font-Raleway">
     <TheNavbar />
     <RouterView />
   </div>
