@@ -1,12 +1,13 @@
 <script setup>
-// Imports and programming logic
+import TheNavbar from "./components/TheNavbar.vue";
 </script>
 
 <template>
-  <!-- Navbar -->
+  <div class="bg-dark text-light w-full h-screen font-Raleway">
+    <TheNavbar />
+    <RouterView />
+  </div>
 
-  <!-- Routing -->
-  <RouterView />
 </template>
 
 <style scoped>
