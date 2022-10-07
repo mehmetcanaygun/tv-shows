@@ -21,8 +21,11 @@
 
     <!-- Summary - Show on hover -->
     <div class="bg-dark rounded-md shadow-lg mb-2 w-[calc(100%-1rem)] aspect-[3/4] p-3 flex flex-col absolute top-2 left-2 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 duration-300">
-      <p class="italic text-lg flex-1 translate-y-20 group-hover:translate-y-0 duration-300 delay-150">{{ formatSummary(this.result.show.summary) }}</p>
-      <p class="text-center text-secondary">Click to see more <i class="fa-regular fa-hand-pointer"></i></p>
+      <p class="italic text-[10px] md:text-lg flex-1 translate-y-20 group-hover:translate-y-0 duration-300 delay-150">
+        <span v-if="this.result.show.summary">{{ formatSummary(this.result.show.summary) }}</span>
+        <span v-else>Summary is not found.</span>
+      </p>
+      <p class="text-center text-secondary text-sm md:text-lg">Click to see more <i class="fa-regular fa-hand-pointer"></i></p>
     </div>
 
     <!-- Title -->
