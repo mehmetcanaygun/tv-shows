@@ -4,8 +4,15 @@
     class="show-background h-72 flex flex-col justify-end mb-6">
     <div class="h-2/3 bg-gradient-to-t from-black to-transparent">
       <div class="container h-full pb-4 flex flex-col justify-end">
-        <!-- Title -->
-        <h1 class="text-4xl mb-2">{{ show.name }}</h1>
+        <!-- Title & Favourite button -->
+        <div class="flex justify-between">
+          <h1 class="text-4xl mb-2">{{ show.name }}</h1>
+
+          <button class="text-xl text-secondary" @click="toggleFavourite(show)">
+            <i v-if="isFavourited" class="fa-solid fa-heart"></i>
+            <i v-else class="fa-regular fa-heart"></i>
+          </button>
+        </div>
 
         <!-- Country & Channel -->
         <p v-if="show.network" class="mb-1">
@@ -91,11 +98,14 @@
 
 <script setup>
 import { useRoute } from 'vue-router';
+import { ref } from 'vue';
 import axios from 'axios';
 import { formatSummary, formatDate } from '../utils'
 import bgPlaceholder from '../assets/bg-placeholder.jpg'
 
 const route = useRoute();
+
+const isFavourited = ref(false);
 
 const getShow = async () => {
   const URL = "https://api.tvmaze.com/shows"
@@ -122,6 +132,14 @@ const getShow = async () => {
 const [show, seasons, cast, images] = await getShow();
 const bg = images.find(img => img.type === "background")
 
+// Check if show was favourited before
+if (localStorage.getItem("mca-tv-shows")) {
+  const savedShows = JSON.parse(localStorage.getItem("mca-tv-shows"))
+
+  isFavourited.value = !!savedShows.find(s => s.id === show.id)
+}
+
+console.log("isFavourited: ", isFavourited.value)
 console.log("show: ", show)
 console.log("seasons: ", seasons)
 console.log("cast: ", cast)
@@ -129,6 +147,32 @@ console.log("images: ", images)
 console.log("bg: ", bg)
 
 const onSeasonClick = () => console.log("hello")
+
+const toggleFavourite = (show) => {
+  const savedShows = JSON.parse(localStorage.getItem("mca-tv-shows"))
+
+  if (!!savedShows) {
+    if (isFavourited.value) {
+      // Remove from favourited shows
+      const formatted = savedShows.filter(s => s.id !== show.id)
+
+      localStorage.setItem("mca-tv-shows", JSON.stringify(formatted))
+
+      isFavourited.value = false;
+    } else {
+      // Add to favourited shows
+      localStorage.setItem("mca-tv-shows", JSON.stringify([...savedShows, show]))
+
+      isFavourited.value = true;
+    }
+  } else {
+    // There's no localStorage. Adding the first time here.
+    // Add to favourited shows
+    localStorage.setItem("mca-tv-shows", JSON.stringify([show]))
+
+    isFavourited.value = true;
+  }
+}
 </script>
 
 <style>
