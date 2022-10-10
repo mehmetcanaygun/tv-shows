@@ -9,6 +9,15 @@ module.exports = {
         light: "#EAFDF8",
         dark: "#1C3041",
       },
+      keyframes: {
+        rotateFull: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+      },
+      animation: {
+        "rotate-full": "rotateFull 1s linear infinite",
+      },
     },
     fontFamily: {
       Raleway: ["Raleway, sans-serif"],
