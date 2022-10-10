@@ -2,11 +2,12 @@
   <Suspense>
     <AsyncShowView #default />
     <template #fallback>
-      <h1>Loading...</h1>
+      <TheSpinner />
     </template>
   </Suspense>
 </template>
 
 <script setup>
 import AsyncShowView from '../components/AsyncShowView.vue';
+import TheSpinner from '../components/TheSpinner.vue';
 </script>
