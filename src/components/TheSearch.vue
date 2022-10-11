@@ -6,7 +6,7 @@
         class="w-full mb-12 text-center bg-transparent text-2xl py-2 border-solid border-0 border-b-2 border-light focus:outline-none focus:border-secondary" />
 
       <div v-if="searchResults.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-8">
-        <SearchResultCard v-for="result in searchResults" :key="result.id" :result="result" />
+        <SearchResultCard v-for="result in searchResults" :key="result.show.id" :result="result" />
       </div>
 
       <!-- Spinner -->
