@@ -2,7 +2,7 @@
   <div
     v-show="modalActive"
     :style="{ top: `${windowTop}px` }"
-    class="overflow-hidden absolute left-0 w-screen h-screen bg-black/80 flex justify-center items-center"
+    class="overflow-hidden absolute left-0 w-screen h-screen bg-black/80 flex justify-center items-center z-50"
   >
     <!-- Content -->
     <div
@@ -25,6 +25,7 @@
 import { ref, watch } from "vue";
 
 defineEmits(["close-modal"]);
+
 const props = defineProps({
   modalActive: {
     type: Boolean,
@@ -34,13 +35,13 @@ const props = defineProps({
 
 const windowTop = ref(0);
 
-watch(
+/* watch(
   () => props.modalActive,
   (prop, prevProp) => {
     console.log("prop: ", prop);
     console.log("prev prop: ", prevProp);
   }
-);
+); */
 
 document.addEventListener("scroll", () => (windowTop.value = window.scrollY));
 </script>
